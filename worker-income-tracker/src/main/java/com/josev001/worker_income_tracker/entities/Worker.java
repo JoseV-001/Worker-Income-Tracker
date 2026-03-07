@@ -1,17 +1,29 @@
 package com.josev001.worker_income_tracker.entities;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+@Entity
+@Table(name = "tb_worker")
 public class Worker {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private WorkerLevel level;
     private Double baseSalary;
 
+    @ManyToOne
+    @JoinColumn(name = "department_id")
     private Department department;
+
+    @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HourContract> contracts = new ArrayList<>();
+
 
     public Worker() {
 
@@ -74,6 +86,7 @@ public class Worker {
 
     public void removeContract(HourContract contract) {
         contracts.remove(contract);
+        contract.setWorker(null); //optional !
     }
 
     public Double income(int year, int month) {
@@ -86,6 +99,17 @@ public class Worker {
         return sum;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Worker worker = (Worker) o;
+        return Objects.equals(id, worker.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
 
 

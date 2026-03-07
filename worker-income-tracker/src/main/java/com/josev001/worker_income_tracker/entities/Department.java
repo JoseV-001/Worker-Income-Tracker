@@ -1,9 +1,20 @@
 package com.josev001.worker_income_tracker.entities;
 
+import jakarta.persistence.*;
+
+import java.util.Objects;
+
+@Entity
+@Table(name = "tb_department")
 public class Department {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
     private String name;
+
+
 
     public Department() {
 
@@ -29,4 +40,15 @@ public class Department {
         this.name = name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Department that = (Department) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }

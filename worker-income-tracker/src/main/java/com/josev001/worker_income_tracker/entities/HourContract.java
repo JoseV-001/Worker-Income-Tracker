@@ -1,15 +1,27 @@
 package com.josev001.worker_income_tracker.entities;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.util.Objects;
+
+@Entity
+@Table(name = "tb_hour_contract")
 public class HourContract {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate date;
     private Double valuePerHour;
     private Integer hours;
 
-    public HourContract(){
+    @ManyToOne
+    @JoinColumn(name = "worker_id")
+    private Worker worker;
+
+
+    public HourContract() {
 
     }
 
@@ -51,8 +63,27 @@ public class HourContract {
         this.hours = hours;
     }
 
-    public Double totalValue(){
+    public Worker getWorker() {
+        return worker;
+    }
+
+    public void setWorker(Worker worker) {
+        this.worker = worker;
+    }
+
+    public Double totalValue() {
         return valuePerHour * hours;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        HourContract that = (HourContract) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
 }
