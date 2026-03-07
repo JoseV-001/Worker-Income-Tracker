@@ -82,6 +82,7 @@ public class Worker {
 
     public void addContract(HourContract contract) {
         contracts.add(contract);
+        contract.setWorker(this);
     }
 
     public void removeContract(HourContract contract) {

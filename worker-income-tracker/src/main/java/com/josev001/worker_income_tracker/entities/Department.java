@@ -14,8 +14,6 @@ public class Department {
     private Long id;
     private String name;
 
-
-
     public Department() {
 
     }
