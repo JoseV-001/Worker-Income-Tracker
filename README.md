@@ -21,7 +21,7 @@ O projeto segue a arquitetura em camadas e utiliza o seguinte modelo de classes:
 ## Tecnologias Utilizadas
 
 * **Java 21**
-* **Spring Boot 3**
+* **Spring Boot 4**
 * **Spring Data JPA**
 * **H2 Database** (Banco de dados em memória para testes)
 * **Jakarta Persistence** (Anotações `@Entity`, `@OneToMany`, `@ManyToOne`)
